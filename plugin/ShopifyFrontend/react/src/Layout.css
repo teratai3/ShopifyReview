@@ -1,0 +1,14 @@
+
+@media (min-width: 768px) {
+    .layout-container {
+        display: flex;
+        justify-content: space-between;
+    }
+    
+    .layout-container .layout-aside{
+        width: 240px;
+    }
+    .layout-container .layout-main{
+        width: calc(100% - 260px);
+    }
+}

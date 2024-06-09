@@ -1,0 +1,14 @@
+.frame-container{
+    height: 0;
+}
+.mobile-menu-button {
+    padding: 0 20px;
+}
+/* モバイルデバイスでのみ表示 */
+@media (min-width: 768px) {
+    .mobile-menu-button {
+        display: none;
+    } 
+}
+
+

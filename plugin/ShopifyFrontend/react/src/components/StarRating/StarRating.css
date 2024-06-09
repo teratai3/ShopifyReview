@@ -1,0 +1,27 @@
+.star-rating {
+    display: flex;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.star {
+    transition: fill 0.2s ease-in-out;
+}
+
+.star:hover {
+    fill: #ffd700;
+}
+
+/* .star.filled {
+    fill: #ffd700;
+} */
+
+
+/* .star-rating .star:hover ~ .star {
+    fill: #d3d3d3 !important; 
+} */
+
+/* .star-rating .star:hover,
+.star-rating .star:hover ~ .star {
+    fill: #ffd700;
+} */
