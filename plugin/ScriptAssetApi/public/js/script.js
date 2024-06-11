@@ -26,7 +26,7 @@
     
             // AJAXリクエストを送信
             $.ajax({
-                url: '/apps/cl-review/front_api/product_reviews/create',
+                url: '/apps/cl-review/product_reviews/create',
                 type: 'POST',
                 data: JSON.stringify(reviewData),
                 contentType: 'application/json',
@@ -59,7 +59,7 @@
     
         self.loadReviews = function (page) {
             $.ajax({
-                url: '/apps/cl-review/front_api/product_reviews',
+                url: '/apps/cl-review/product_reviews',
                 type: 'GET',
                 data: {
                     product_id: $("#product_id").val(), 

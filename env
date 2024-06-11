@@ -58,7 +58,10 @@ database.default.port = 3306
 # ENCRYPTION
 #--------------------------------------------------------------------
 
-# encryption.key =
+encryption.key =''
+encryption.driver = OpenSSL
+encryption.blockSize = 16
+encryption.digest = SHA512
 
 #--------------------------------------------------------------------
 # SESSION
