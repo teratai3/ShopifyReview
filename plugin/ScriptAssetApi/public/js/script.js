@@ -10,12 +10,20 @@
         self.reviews = ko.observableArray([]);
         self.currentPage = ko.observable(1);
         self.totalPages = ko.observable(1);
-        self.perPage = 15;
+        self.perPage = 10;
         self.errorMessages = ko.observable({});
     
         self.submitReview = function () {
+
+            let product_id = $("#product_id").val();
+
+            if (!checkReviewCookie(product_id)) {
+                alert("同一商品について短時間でのコメント記入はできません。時間をおいて再度投稿してください。");
+                return;
+            }
+
             let reviewData = {
-                product_id: $("#product_id").val(),
+                product_id: product_id,
                 name: self.name(),
                 title: self.title(),
                 description: self.description(),
@@ -31,6 +39,7 @@
                 data: JSON.stringify(reviewData),
                 contentType: 'application/json',
                 success: function (response) {
+                    setReviewCookie(product_id);
                     alert("レビューが送信されました。管理者承認の元、一覧に表示されます。");
                     self.name("");
                     self.title("");
@@ -120,7 +129,29 @@
             element.innerHTML = stars;
         }
     };
+
+
+    function setReviewCookie(productId) {
+        const now = new Date();
+        now.setTime(now.getTime() + (30 * 60 * 1000)); // 30分間有効
+        const expires = "expires=" + now.toUTCString();
+        document.cookie = `cl_reviewed_${productId}=${Date.now()};${expires};path=/`;
+    }
     
+
+    function checkReviewCookie(productId) {
+        const cookies = document.cookie.split(';');
+        const reviewCookie = cookies.find(cookie => cookie.trim().startsWith(`cl_reviewed_${productId}=`));
+        if (reviewCookie) {
+            const lastReviewedTime = parseInt(reviewCookie.split('=')[1]);
+            const currentTime = Date.now();
+            // 30分以内にレビューがされていた場合は警告
+            if (currentTime - lastReviewedTime < 30 * 60 * 1000) {
+                return false; // 送信を阻止
+            }
+        }
+        return true;
+    }
     
     ko.applyBindings(new ReviewFormViewModel());
     

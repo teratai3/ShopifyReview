@@ -22,16 +22,66 @@
     }
 
     .review-lists ul>li {
+        margin-bottom: 15px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid #000;
+    }
+</style>
+<style>
+    /* 一旦の見た目 */
+    .cl-review-section input,
+    .cl-review-section textarea {
+        display: block;
+        width: 100% !important;
+        outline: 0;
+        box-shadow: none;
+        padding: 15px 10px;
+        border: 1px solid #000;
+        border-radius: 0;
+    }
+
+    .cl-review-section .form-block {
         margin-bottom: 25px;
+    }
+
+    .review-lists ul {
+        padding: 0;
+        margin: 0;
+        list-style-type: none;
+    }
+
+    .review-lists ul * {
+        margin: 0;
+    }
+
+    .form-submit {
+        border: none;
+        cursor: pointer;
+        outline: none;
+        padding: 0;
+        appearance: none;
+        box-shadow: none;
+        background-color: #333;
+        color: #fff;
+        padding: 15px 60px;
+    }
+    .form-submit:hover{
+        opacity: 0.7;
     }
 </style>
 
-<section class="hideSection contents-section" data-bind="css: {'showSection': true}">
+<section class="hideSection cl-review-section" data-bind="css: {'showSection': true}">
     <div style="margin-bottom: 30px;">
         <form data-bind="submit: submitReview">
-            <h2 style="margin-bottom: 15px;">レビュー送信フォーム</h2>
-            <input type="hidden" id="product_id" value="{{ product.id }}">
-            <div>
+            <h2 style="margin-bottom: 15px;">レビュー送信</h2>
+            <div class="form-block">
+                <input type="hidden" id="product_id" value="{{ product.id }}">
+                <div class="error" data-bind="with: errorMessages()['product_id']">
+                    <p data-bind="text: $data"></p>
+                </div>
+            </div>
+
+            <div class="form-block">
                 <label>ユーザー名</label>
                 <input type="text" data-bind="value: name" />
 
@@ -40,14 +90,15 @@
                 </div>
             </div>
 
-            <div>
+            <div class="form-block">
                 <label>タイトル</label>
                 <input type="text" data-bind="value: title" />
                 <div class="error" data-bind="with: errorMessages()['title']">
                     <p data-bind="text: $data"></p>
                 </div>
             </div>
-            <div>
+
+            <div class="form-block">
                 <label>コメント</label>
                 <textarea data-bind="value: description"></textarea>
 
@@ -55,7 +106,8 @@
                     <p data-bind="text: $data"></p>
                 </div>
             </div>
-            <div>
+
+            <div class="form-block">
                 <label for="recommend_level">評価</label>
                 <div class="star-rating">
                     <!-- ko foreach: { data: stars, as: 'star' } -->
@@ -67,8 +119,9 @@
                     <p data-bind="text: $data"></p>
                 </div>
             </div>
+
             <div>
-                <button type="submit">送信する</button>
+                <button type="submit" class="form-submit">送信する</button>
             </div>
         </form>
     </div>
@@ -102,8 +155,5 @@
         </div>
     </div>
 </section>
-<script
-  src="https://code.jquery.com/jquery-3.7.1.min.js"
-  integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
-  crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.0/knockout-min.js"></script>

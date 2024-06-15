@@ -21,10 +21,10 @@ class ShopifyAuthFilter implements FilterInterface
 
     public function before(RequestInterface $request, $arguments = null)
     {
-     
+
         $token = $this->getAuthorizationHeader();
 
-        $TokenService = new TokenService(env("ShopifyApiKey"));
+        $TokenService = new TokenService(env("ShopifyApiKey"), env("ShopifySharedSecret"));
 
         $result = $TokenService->verifySessionToken($token);
 
@@ -32,11 +32,11 @@ class ShopifyAuthFilter implements FilterInterface
             return $this->denyAccess($result['message']);
         }
 
-      
+
 
         $shopDomain = parse_url($result['payload']['dest'], PHP_URL_HOST);
         $shopifyAuthModel = new ShopifyAuthModel();
-        $record = $shopifyAuthModel->where('shop_domain',$shopDomain)->first();
+        $record = $shopifyAuthModel->where('shop_domain', $shopDomain)->first();
 
         // $logger = service('logger');
         // $logger->error($shopDomain);
@@ -50,7 +50,7 @@ class ShopifyAuthFilter implements FilterInterface
 
         // log_message('info', 'test: ' . $record["id"]);
         $request->myAccessToken = $record['access_token'];
-        
+
         return $request;
     }
 

@@ -26,10 +26,10 @@ class ProductReviewValidation
                 return false;
             }
 
-            if (isset($product["published_scope"]) && $product["published_scope"] !== "global") {
-                $error = '公開された商品のみ選択可能です。';
-                return false;
-            }
+            // if (isset($product["published_scope"]) && $product["published_scope"] !== "global") {
+            //     $error = '公開された商品のみ選択可能です。'; //在庫なしもあるため、コメントアウト
+            //     return false;
+            // }
 
             return true;
         };
